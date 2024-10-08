@@ -39,11 +39,12 @@ const App = () => {
     <div>
       <Banner 
         title={schedule.title}/>
-      {Object.keys(schedule.courses).map(courseId => 
-        (<CourseList 
-          coursekey={courseId} 
-          course={schedule.courses[courseId]}/>))}
-      
+      <div className="cards-list">
+        {Object.keys(schedule.courses).map(courseId => 
+          (<CourseList 
+            coursekey={courseId} 
+            course={schedule.courses[courseId]}/>))}
+      </div>
     </div>
   );
 };
