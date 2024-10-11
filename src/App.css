@@ -1,3 +1,15 @@
+.term-buttons-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.term-btn {
+  font-size: 20px; 
+  padding: 10px 20px;
+}
+
 .card-title {
   font-size: 20px;
   font-weight: 600;
