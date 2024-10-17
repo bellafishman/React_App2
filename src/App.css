@@ -26,6 +26,12 @@
   padding: 10px;
   margin: 10px;
 }
+
+.card .selected {
+  background-color:rgb(79, 45, 156);
+  color: rgb(255, 255, 255);
+}
+
 .line {
   height: 1px;            /* Thin line */
   background-color: black;

@@ -1,16 +1,20 @@
-import React from 'react'
+import React from 'react';
+import Course from './Course';
 
-const CourseList = ({ course }) => (
-    <table className="card m-1 p-2 w-100">
-        <tbody>
-            <tr className="card-title"><td>{course.term} CS {course.number}</td></tr>
-            <tr className="description"><td>{course.title}</td></tr>
-            <tr>
-                <td><div className="line"></div></td>
-            </tr>
-            <tr><td>{course.meets}</td></tr>
-        </tbody>
-    </table>
-);
-
-export default CourseList
+export default function CourseList({ courses, selection, classes, toggleSelected }) {
+    const filteredCourses = Object.values(courses).filter(course => course.term === selection);
+    return (
+        <div className="cards-list">
+        {
+            
+            filteredCourses.map(course => (
+                <Course
+                    key={course.number}
+                    course={course} 
+                    classes={classes} 
+                    toggleSelected={toggleSelected} />
+                ))
+        }
+        </div>
+    )
+}
