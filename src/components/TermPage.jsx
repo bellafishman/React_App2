@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import CourseList from './CourseList';
 import TermSelector from './TermSelector';
-
+import Modal from './Modal';
+import Cart from './Cart';
 
 const terms = ["Fall", "Winter", "Spring"];
 
@@ -9,27 +10,37 @@ const terms = ["Fall", "Winter", "Spring"];
 
 export default function TermPage({ data }) {
   const [selection, setSelection] = useState(terms[0]); 
-  //const filteredCourses = Object.keys(data.courses).filter(courseId => 
-  //  data.courses[courseId].term === selection
-  //);
-
+  // open or close modal
+  const [open, setOpen] = useState(false);
 
   const [classes, setClasses] = useState([]);
-  const toggleSelected = (item) => setClasses(
-    classes.includes(item)
-    ? classes.filter(x => x !== item)
-    : [...classes, item]
+
+  const toggleSelected = (item) => setClasses(prevClasses => 
+    prevClasses.includes(item)
+      ? prevClasses.filter(course => course.number !== item.number)
+      : [...prevClasses, item]
   );
+
+  // modal functions for toggling modal
+  const openModal = () => setOpen(true);
+  const closeModal = () => setOpen(false);
 
   
 
   return (
     <div>
       <TermSelector selection={selection} setSelection={setSelection} terms={terms} />
+      <button className="btn btn-outline-dark" onClick={openModal}>
+        <i className="fa-solid fa-plus"></i>
+      </button>
+      <Modal open={open} close={closeModal}>
+        <Cart classes={classes}  />
+      </Modal>
+
       <CourseList 
-        courses={data.courses}
-        selection={selection} // Pass the full course object
-        classes={classes}
+        courses={data.courses} // Pass the full course object
+        selection={selection} 
+        classes={classes} 
         toggleSelected={toggleSelected}
       />
     </div>

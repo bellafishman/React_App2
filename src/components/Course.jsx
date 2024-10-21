@@ -3,8 +3,8 @@ import React from 'react'
 export default function Course({ course, classes, toggleSelected }) {
     const { number, title, term, meets } = course;
     return (
-        <table className="card m-1 p-2 w-100" onClick={() => toggleSelected(number)}>
-            <tbody className={`${classes.includes(number) ? 'selected' : ''}`}>
+        <table className="card m-1 p-2 w-100" onClick={() => toggleSelected(course)}>
+            <tbody className={`${classes.includes(course) ? 'selected' : ''}`}>
                     <tr className="card-title"><td>{term} CS {number}</td></tr>
                     <tr className="description"><td>{title}</td></tr>
                     <tr>

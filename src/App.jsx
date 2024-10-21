@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useJsonQuery } from './utilities/fetch';
 import './App.css';
 import Banner from './components/Banner';
+import Navigation from './components/Navigation';
 
 import TermPage from './components/TermPage';
 
@@ -15,6 +16,7 @@ const Main = () => {
 
   return (
     <div>
+      <Navigation />
       <Banner title={data.title} />
       <TermPage data={data}/>
     </div>

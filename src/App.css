@@ -44,3 +44,28 @@
   grid-template-columns: repeat(auto-fill, 14rem);
   justify-content: center;
 }
+
+/* Modal */
+.modal {
+  display: block;
+  visibility: hidden;
+}
+
+.modal-show {
+  visibility:visible;
+  background-color: rgba(169, 169, 169, 0.966);
+  transition: opacity 0.2s linear; 
+} 
+
+.modal-content  {
+  opacity: 0; 
+}
+
+.modal-show .modal-content  {
+  opacity: 1; 
+  transition: 0.2s linear; 
+}
+
+.modal-header {
+  margin-left: auto;
+}
