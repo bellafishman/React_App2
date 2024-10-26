@@ -17,7 +17,7 @@ export default function CourseList({ courses, selection, classes, toggleSelected
                     course={course} 
                     classes={classes} 
                     toggleSelected={toggleSelected} 
-                    nonselectable={conflictedCourseNumbers.has(course.number)}/>
+                    nonselectable={conflictedCourseNumbers.has(course.number) && !classes.includes(course)}/>
                 ))
         }
         </div>
