@@ -69,3 +69,7 @@
 .modal-header {
   margin-left: auto;
 }
+
+.nonselectable {
+  background-color: rgb(198, 198, 198); 
+}
