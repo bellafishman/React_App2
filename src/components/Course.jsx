@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Course({ course, classes, toggleSelected, nonselectable }) {
     const { number, title, term, meets } = course;
@@ -14,6 +15,9 @@ export default function Course({ course, classes, toggleSelected, nonselectable 
                         <td><div className="line"></div></td>
                     </tr>
                     <tr><td>{meets}</td></tr>
+                    <Link to={`/course/${course.id}`} className="btn btn-outline-primary">
+                        <i className="fa-solid fa-pen-to-square"></i>
+                    </Link>
             </tbody>
         </table>
   )

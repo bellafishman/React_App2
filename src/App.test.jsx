@@ -1,7 +1,7 @@
 import {beforeEach, describe, expect, it, vi} from 'vitest';
 import {render, screen} from '@testing-library/react';
 import App from './App';
-import { filteredCourses } from './components/CourseList';
+import { conflictingClasses } from './utilities/conflicts';
 import {useAuthState} from './utilities/firebase';
 import {useJsonQuery} from './utilities/fetch'
 
@@ -78,10 +78,10 @@ describe('term selection', () => {
 
 describe('course conflicts', () => {
   it('should allow same time, different terms', () => {
-    expect(filteredCourses(mockSchedule.courses.F101, [mockSchedule.courses.S110])).toBeTruthy();
+    expect(conflictingClasses(mockSchedule.courses.F101, [mockSchedule.courses.S110])).toBeTruthy();
   });
   it('should reject MWF 13:00-13:50 and MWF 12:30-13:50', () => {
-    expect(filteredCourses(mockSchedule.courses.F111, [mockSchedule.courses.F211])).toBeFalsy();
+    expect(conflictingClasses(mockSchedule.courses.F111, [mockSchedule.courses.F211])).toBeFalsy();
   })
 });
 
