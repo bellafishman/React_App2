@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useFormData } from '../utilities/useFormData';
 
 // contains text input fields for the title and meeting times
 // for a course. Add a link or button on each course card to open the edit form
 const validateUserData = (key, val) => {
     switch (key) {
+        // at least 2 characters
         case 'title':
-            return val.trim() === '' ? 'Title is required' : '';
+            return val.trim().length >= 2 ? '' : 'Title must be at least 2 characters';
+        // empty string or legal meeting time (1+days and non emoty time span)
         case 'meets':
-            return val.trim() === '' ? 'Meeting time is required' : '';
+            const meetsPattern = /^$|^(?:[MTuWThF]+ \d{1,2}:\d{2}-\d{1,2}:\d{2})$/;
+            return meetsPattern.test(val.trim()) ? '' : 'Must contain days and start-end time, e.g., MWF 12:00-13:20';
         default:
             return '';
     }
