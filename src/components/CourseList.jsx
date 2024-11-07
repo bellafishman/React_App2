@@ -4,21 +4,24 @@ import { conflictingClasses } from "../utilities/conflicts"
 import { Link } from 'react-router-dom';
 
 export default function CourseList({ courses, selection, classes, toggleSelected }) {
-    const filteredCourses = Object.values(courses).filter(course => course.term === selection);
+    const filteredCourses = Object.entries(courses)
+        .filter(([id, course]) => course.term === selection)
+        .map(([id, course]) => ({ id,  ...course }));
+
     const conflicts = conflictingClasses(classes, filteredCourses);
     
-    const conflictedCourseNumbers = new Set(conflicts.map(({attempted}) => attempted.number));
+    const conflictedCourseIds = new Set(conflicts.map(({attempted}) => attempted.id));
     return (
         <div className="cards-list">
         {   
             filteredCourses.map(course => (
-                <div key={course.number} className="course-card">
+                <div key={course.id} className="course-card">
                     <Course
-                        key={course.number}
+                        key={course.id}
                         course={course} 
                         classes={classes} 
                         toggleSelected={toggleSelected} 
-                        nonselectable={conflictedCourseNumbers.has(course.number) && !classes.includes(course)}
+                        nonselectable={conflictedCourseIds.has(course.id) && !classes.some(c => c.id === course.id)}
                     />
                 </div>
                 ))

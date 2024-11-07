@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useFormData } from '../utilities/useFormData';
+import { useDbUpdate, useDbData } from '../utilities/firebase';
 
 // contains text input fields for the title and meeting times
 // for a course. Add a link or button on each course card to open the edit form
-const validateUserData = (key, val) => {
+const validateCourseData = (key, val) => {
     switch (key) {
         // at least 2 characters
         case 'title':
@@ -18,8 +19,6 @@ const validateUserData = (key, val) => {
             return '';
     }
 }
-
-
 
 const InputField = ({name, text, state, change}) => (
     <div>
@@ -43,19 +42,31 @@ const ButtonBar = ({message, disabled}) => {
     );
 };
 
-const CourseEditor = ({user}) => {
+const CourseEditor = () => {
     const { courseId } = useParams();
-    const [state, change] = useFormData(validateUserData, { title: '', meets: '' })
+    const [course, setCourse] = useState(null);
+    const [courseData, error] = useDbData(`/courses/${courseId}`);
+
+    const [update, result] = useDbUpdate(`/courses/${courseId}`);
+    const [state, change] = useFormData(validateCourseData, course);
     
+    useEffect(() => {
+        if (courseData) {
+            setCourse(courseData);
+        }
+    }, [courseData]);
+
     const submit = (evt) => {
         evt.preventDefault();
-        console.log("Form submission would go here:", state.values);
+        if (!state.errors) {
+            update(state.values);
+        }
     };
     return (
         <form onSubmit={submit} noValidate>
             <InputField name="title" text="Title" state={state} change={change} />
             <InputField name="meets" text="Meeting Time" state={state} change={change} />
-            <ButtonBar message="Fill out the form" disabled={!!state.errors?.title || !!state.errors?.meets} />
+            <ButtonBar message={result?.message} />
         </form>
     )
 }

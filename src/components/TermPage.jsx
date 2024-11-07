@@ -15,11 +15,13 @@ export default function TermPage({ data }) {
 
   const [classes, setClasses] = useState([]);
 
-  const toggleSelected = (item) => setClasses(prevClasses => 
-    prevClasses.includes(item)
-      ? prevClasses.filter(course => course.number !== item.number)
-      : [...prevClasses, item]
-  );
+  const toggleSelected = (item) => {
+    setClasses(prevClasses => 
+        prevClasses.some(course => course.id === item.id)
+            ? prevClasses.filter(course => course.id !== item.id)  // Deselect if already selected
+            : [...prevClasses, item]  // Select if not already selected
+    );
+};
 
   // modal functions for toggling modal
   const openModal = () => setOpen(true);
