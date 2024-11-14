@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthState } from '../utilities/firebase';
 
-export default function Course({ course, classes, toggleSelected, nonselectable }) {
+export default function Course({ course, classes, toggleSelected, nonselectable, profile }) {
     const [user] = useAuthState();
     const { id, number, title, term, meets } = course;
     const isSelected = classes.some(selectedCourse => selectedCourse.id === id);
@@ -20,7 +20,7 @@ export default function Course({ course, classes, toggleSelected, nonselectable 
                 </tr>
                 <tr><td>{meets}</td></tr>
                 <tr><td>
-                    {user && (
+                    {profile?.isAdmin && (
                         <Link to={`/course/${id}`} className="btn btn-outline-primary">
                             <i className="fa-solid fa-pen-to-square"></i>
                         </Link>

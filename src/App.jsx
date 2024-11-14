@@ -21,6 +21,7 @@ const Main = () => {
       <Navigation />
       <Banner title={data.title} />
       <TermPage data={data}/>
+
     </div>
   );
 }
@@ -37,7 +38,7 @@ const App = () => {
           <Routes>
             {/* Route for the main page */}
             <Route path="/" element={<Main />} />
-
+  
             {/* Route for the CourseEditor with dynamic courseId */}
             <Route path="/course/:courseId" element={<CourseEditor />} />
           </Routes>
